@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<br><br>
+<div class="row">
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          <p>{{ message }}</p>
+        </div>
+      </div>
+    </div>
+</div>
+    
+{% endfor %}
+{% endif %}
+{% endwith  %}
+
+<br><br>
+
+<form action="/add_contact" method="post">
+    <input type="text" class="form-control" name="fullname" placeholder="FULLNAME"><br>
+    <input type="text" class="form-control" name="phone" placeholder="PHONE"><br>
+    <input type="text" class="form-control" name="email" placeholder="EMAIL"><br>
+    <input type="submit" class="btn btn-primary" value="Guardar Contacto">
+
+</form>
+
+<br><br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Full Name</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td colspan="2">Options</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{contact.1}}</td>
+            <td>{{contact.2}}</td>
+            <td>{{contact.3}}</td>
+            <td><a class="btn btn-danger btn-sm" href="/delete_contact/{{contact.0}}">DELETE</a></td>
+            <td><a class="btn btn-info btn-sm" href="/edit_contact/{{contact.0}}">EDIT</a></td>
+        </tr>
+        {% endfor%}
+    </tbody>
+</table>
+
+{% endblock %}

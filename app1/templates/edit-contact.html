@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith  %}
+
+<br><br>
+
+{% for contact in contacts %}
+
+    <form action="/update_contact/" method="post">
+        <input type="text" class="form-control" name="fullname" placeholder="FULLNAME" value="{{contact.1}}"><br>
+        <input type="text" class="form-control" name="phone" placeholder="PHONE" value="{{contact.2}}"><br>
+        <input type="text" class="form-control" name="email" placeholder="EMAIL" value="{{contact.3}}"><br>
+        <input type="hidden" name="id" value="{{contact.0}}">
+        <input type="submit" value="Guardar">
+    </form>
+
+{% endfor%}
+
+{% endblock %}
